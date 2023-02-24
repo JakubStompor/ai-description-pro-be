@@ -6,6 +6,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { AiService } from './ai.service';
+import { GetAiProductDescriptionDto } from './dto/ai.dto';
 
 @ApiTags('OpenAI')
 @Controller('ai')
@@ -14,6 +15,7 @@ export class AiController {
 
   @ApiOperation({ summary: 'Get generated product descriptions by ChatGPT' })
   @ApiBody({
+    type: GetAiProductDescriptionDto,
     schema: {
       properties: {
         currentProductDescription: {
