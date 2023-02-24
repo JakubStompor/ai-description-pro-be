@@ -1,5 +1,10 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiCreatedResponse,
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger';
 import { AiService } from './ai.service';
 
 @ApiTags('OpenAI')
@@ -19,6 +24,9 @@ export class AiController {
     },
   })
   @Post('/productDescription')
+  @ApiCreatedResponse({
+    type: String,
+  })
   async getProductDescription(
     @Body('currentProductDescription') currentProductDescription: string,
   ): Promise<string> {

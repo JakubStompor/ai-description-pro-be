@@ -1,9 +1,10 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
   IsArray,
   IsBoolean,
   IsNumber,
   IsObject,
+  IsOptional,
   IsString,
 } from 'class-validator';
 
@@ -213,7 +214,7 @@ export class ProductDto {
 
 export class GetProductsResponseDto {
   @ApiProperty({
-    type: ProductDto,
+    type: [ProductDto],
   })
   @IsArray()
   products: ProductDto[];
@@ -221,4 +222,101 @@ export class GetProductsResponseDto {
     type: ProductPagingDto,
   })
   paging: ProductPagingDto;
+}
+
+export enum PublishedStatus {
+  'published' = 'published',
+  'unpublished' = 'unpublished',
+  'any' = 'any',
+}
+
+export enum ProductStatus {
+  'active' = 'active',
+  'archived' = 'archived',
+  'draft' = 'draft',
+}
+export class ProductsQuerySearchParamsDto {
+  @ApiProperty({ required: false })
+  @IsString()
+  @IsOptional()
+  api_version?: string;
+  @ApiProperty({ required: false })
+  @IsString()
+  @IsOptional()
+  collection_id?: string;
+  @ApiProperty({ required: false })
+  @IsString()
+  @IsOptional()
+  created_at_max?: string;
+  @ApiProperty({ required: false })
+  @IsString()
+  @IsOptional()
+  created_at_min?: string;
+  @ApiProperty({ required: false })
+  @IsString()
+  @IsOptional()
+  fields?: string;
+  @ApiProperty({ required: false })
+  @IsString()
+  @IsOptional()
+  handle?: string;
+  @ApiProperty({ required: false })
+  @IsString()
+  @IsOptional()
+  ids?: string;
+  @ApiProperty({ required: false })
+  @IsNumber()
+  @IsOptional()
+  limit?: number;
+  @ApiProperty({ required: false })
+  @IsString()
+  @IsOptional()
+  presentment_currencies?: string;
+  @ApiProperty({ required: false })
+  @IsString()
+  @IsOptional()
+  product_type?: string;
+  @ApiProperty({ required: false })
+  @IsString()
+  @IsOptional()
+  published_at_max?: string;
+  @ApiProperty({ required: false })
+  @IsString()
+  @IsOptional()
+  published_at_min?: string;
+  @ApiProperty({
+    enum: PublishedStatus,
+    required: false,
+  })
+  @IsOptional()
+  published_status?: PublishedStatus;
+  @ApiProperty({ required: false })
+  @IsString()
+  @IsOptional()
+  since_id?: string;
+  @ApiProperty({
+    enum: ProductStatus,
+    required: false,
+  })
+  status?: ProductStatus;
+  @ApiProperty({ required: false })
+  @IsString()
+  @IsOptional()
+  title?: string;
+  @ApiProperty({ required: false })
+  @IsString()
+  @IsOptional()
+  updated_at_max?: string;
+  @ApiProperty({ required: false })
+  @IsString()
+  @IsOptional()
+  updated_at_min?: string;
+  @ApiProperty({ required: false })
+  @IsString()
+  @IsOptional()
+  vendor?: string;
+  @ApiProperty({ required: false })
+  @IsString()
+  @IsOptional()
+  order?: string;
 }

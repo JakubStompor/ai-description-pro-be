@@ -3,11 +3,11 @@ import {
   ApiCreatedResponse,
   ApiOkResponse,
   ApiOperation,
+  ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
 import { Observable } from 'rxjs';
 import { GetProductsResponseDto, ProductDto } from './dto/products.dto';
-import { ProductsQueryParams } from './products.model';
 import { ProductsService } from './products.service';
 
 @ApiTags('Shopify products')
@@ -20,11 +20,19 @@ export class ProductsController {
   @ApiOkResponse({
     type: GetProductsResponseDto,
   })
+  @ApiQuery({
+    name: 'productsQuerySearchParams',
+    required: false,
+    type: String,
+  })
   getProducts(
     @Param('productsCollectionDate') productsCollectionDate: string,
-    @Query() query: ProductsQueryParams,
+    @Query('productsQuerySearchParams') productsQuerySearchParams: string,
   ): Observable<GetProductsResponseDto> {
-    return this.productsService.getProducts(productsCollectionDate, query);
+    return this.productsService.getProducts(
+      productsCollectionDate,
+      productsQuerySearchParams,
+    );
   }
 
   @Put(':productsCollectionDate/:productId')
@@ -34,7 +42,7 @@ export class ProductsController {
   })
   updateProduct(
     @Param('productsCollectionDate') productsCollectionDate: string,
-    @Param('productId') productId: string,
+    @Param('productId') productId: number,
     @Body() product: ProductDto,
   ): Observable<ProductDto> {
     return this.productsService.updateProduct(

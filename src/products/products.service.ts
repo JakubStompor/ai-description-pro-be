@@ -10,7 +10,6 @@ import {
   ProductDto,
   ProductPagingDto,
 } from './dto/products.dto';
-import { ProductsQueryParams } from './products.model';
 
 @Injectable()
 export class ProductsService {
@@ -30,7 +29,7 @@ export class ProductsService {
 
   updateProduct(
     productCollectionDate: string,
-    productId: string,
+    productId: number,
     product: ProductDto,
   ): Observable<ProductDto> {
     return this.httpService
@@ -46,12 +45,11 @@ export class ProductsService {
 
   getProducts(
     productCollectionDate: string,
-    queryParams: ProductsQueryParams,
+    productsQuerySearchParams: string,
   ): Observable<GetProductsResponseDto> {
-    const query = new URLSearchParams(queryParams as any).toString();
     return this.httpService
       .get(
-        `${this.shopifyApiUrl}/${productCollectionDate}/products.json?${query}`,
+        `${this.shopifyApiUrl}/${productCollectionDate}/products.json?${productsQuerySearchParams}`,
         {
           headers: this.headers,
         },

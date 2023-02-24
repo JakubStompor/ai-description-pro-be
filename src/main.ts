@@ -5,6 +5,7 @@ import {
   SwaggerModule,
 } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+import { ProductsQuerySearchParamsDto } from './products/dto/products.dto';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -16,6 +17,7 @@ async function bootstrap() {
     .build();
   const options: SwaggerDocumentOptions = {
     deepScanRoutes: true,
+    extraModels: [ProductsQuerySearchParamsDto],
   };
   const document = SwaggerModule.createDocument(app, config, options);
   SwaggerModule.setup('api', app, document);
