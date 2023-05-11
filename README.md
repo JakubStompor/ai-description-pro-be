@@ -1,10 +1,7 @@
 # Project Title
 
-A brief description of what this project does and who it's for
-
-## Description
-
-This is the API which is connecting to Shopify API and OpenAI API. And it's exposing endpoints to generate auto descriptions for Your products in shop.
+This is the API which connects to Shopify API and OpenAI API.
+It's exposing endpoints to generate auto descriptions for Your products in Shopify shop.
 
 ## Installation
 
